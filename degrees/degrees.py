@@ -1,5 +1,6 @@
 import csv
 import sys
+from tkinter import N
 
 from util import Node, StackFrontier, QueueFrontier
 
@@ -91,9 +92,32 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+    first = (-1, source)
+    start = Node(state=first, parent=None, action=None)
+    frontier = QueueFrontier()
+    frontier.add(start)
 
+    explored = set()
 
-    return None
+    while True:
+        if frontier.empty():
+            return None
+        
+        node = frontier.remove()
+
+        if node.state[1] == target:
+            solution = []
+            while node.parent is not None:
+                solution.append(node.state)
+                node = node.parent
+            solution.reverse()
+            return solution
+
+        explored.add(node.state)
+        for child in neighbors_for_person(node.state[1]):
+            if not frontier.contains_state(child) and child not in explored:
+                child_node = Node(state = child, parent=node, action=None)
+                frontier.add(child_node)
 
 
 def person_id_for_name(name):
