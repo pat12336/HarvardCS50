@@ -2,4 +2,9 @@
 degrees/large/
 degrees/small/
 
-ttf
+tictactoe/test.py
+tictactoe/__pycache__
+
+knights/__pycache__
+
+*/.ttf

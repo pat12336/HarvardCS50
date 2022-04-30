@@ -1,3 +1,5 @@
+from sys import implementation
+from tkinter import N
 from logic import *
 
 AKnight = Symbol("A is a Knight")
@@ -12,21 +14,36 @@ CKnave = Symbol("C is a Knave")
 # Puzzle 0
 # A says "I am both a knight and a knave."
 knowledge0 = And(
-    # TODO
+    Not(Biconditional(AKnight, AKnave)),
+    Implication(AKnave, Not(And(AKnight, AKnave))),
+    Implication(AKnight, And(AKnave, AKnight))
+
 )
 
 # Puzzle 1
 # A says "We are both knaves."
 # B says nothing.
 knowledge1 = And(
-    # TODO
+    Not(Biconditional(AKnight, AKnave)),
+    Not(Biconditional(BKnight, BKnave)),
+    Implication(AKnave, Not(And(AKnave, BKnave))),
+    Implication(AKnight, And(AKnave, BKnave))
 )
 
 # Puzzle 2
 # A says "We are the same kind."
 # B says "We are of different kinds."
 knowledge2 = And(
-    # TODO
+    Not(Biconditional(AKnight, AKnave)),
+    Not(Biconditional(BKnight, BKnave)),
+    #Implication(AKnave, Not(Biconditional(AKnight, BKnight))),
+    Implication(AKnave, Not(Biconditional(AKnave, BKnave))),
+    #Implication(AKnight, Biconditional(AKnight, BKnight)),
+    Implication(AKnight, Biconditional(AKnave, BKnave)),
+    #Implication(BKnave, Not(Biconditional(AKnight, BKnave))),
+    Implication(BKnave, Not(Biconditional(AKnave, BKnight))),
+    #Implication(BKnight, Biconditional(AKnight, BKnave)),
+    Implication(BKnight, Biconditional(AKnave, BKnight)),
 )
 
 # Puzzle 3
@@ -35,7 +52,17 @@ knowledge2 = And(
 # B says "C is a knave."
 # C says "A is a knight."
 knowledge3 = And(
-    # TODO
+    Not(Biconditional(AKnight, AKnave)),
+    Not(Biconditional(BKnight, BKnave)),
+    Not(Biconditional(CKnight, CKnave)),
+    Implication(AKnave, Not(Or(AKnight, AKnave))),
+    Implication(AKnight, Or(AKnight, AKnave)),
+    Implication(BKnave, Not(AKnave)),
+    Implication(BKnight, AKnave),
+    Implication(BKnave, Not(CKnave)),
+    Implication(BKnight, CKnave),
+    Implication(CKnave, Not(AKnight)),
+    Implication(CKnight, AKnight)
 )
 
 
